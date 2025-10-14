@@ -3,7 +3,7 @@ import java.util.Queue;
 
 public class ColaPedidos {
     private Queue<Integer> cola = new LinkedList<Integer>();
-    private int capacidad;
+    private int capacidad=5;
 
     public synchronized void nuevoPedido(int pedido) throws InterruptedException {
         //Si la cola esta llena, se espera
@@ -34,7 +34,7 @@ public class ColaPedidos {
 
         return pedido;
     }
-    public Queue<Integer> getCola() {
+    private Queue<Integer> getCola() {
         return cola;
     }
 }
