@@ -1,11 +1,12 @@
 public class ProductorPedidos extends Thread {
     private ColaPedidos colaPedidos; //colaPedidos compartido
-    private String nombreCliente;
+
+
 
     //Constructor compartido
-    public ProductorPedidos(ColaPedidos colaPedidos, String nombreCliente) {
+    public ProductorPedidos(ColaPedidos colaPedidos) {
         this.colaPedidos = colaPedidos;
-        this.nombreCliente = nombreCliente;
+
     }
 
     @Override
@@ -14,7 +15,7 @@ public class ProductorPedidos extends Thread {
             //Bucle generando como ejemplo 100 pedidos
             for (int i = 1; i <= 100; i++) {
                 //Y por cada pedido se tendrá un nombre con el siguiente estilo
-                String pedido = "Pedido " + i + " de " + nombreCliente;
+                String pedido = "Pedido " + i + " de Cliente" ;
 
                 //Lo mostramos por pantalla
                 System.out.println(pedido);

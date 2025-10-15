@@ -1,6 +1,6 @@
 public class ConsumidorPedidos extends Thread {
 
-    private ColaPedidos  colaPedido;
+    private ColaPedidos colaPedido;
 
     public ConsumidorPedidos(ColaPedidos colaPedido) {
         this.colaPedido = colaPedido;
@@ -20,6 +20,7 @@ public class ConsumidorPedidos extends Thread {
 
             Thread.sleep(1000);
 
+            System.out.println(getName()+" Pedido finalizado.");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
