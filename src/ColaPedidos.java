@@ -10,6 +10,7 @@ public class ColaPedidos {
         while(cola.size() == capacidad){
             //Espera si la colaPedidos esta lleno
             wait();
+            //hola
         }
 
         //Si hay especio se añade a la cola
