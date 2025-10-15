@@ -6,8 +6,8 @@ public class ConsumidorPedidos extends Thread {
         this.colaPedido = colaPedido;
     }
 
-    private void facturaPedido() {
-
+    private void facturaPedidos(){
+        
     }
 
     public void run(){
