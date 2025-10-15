@@ -7,7 +7,7 @@ public class ConsumidorPedidos extends Thread {
     }
 
     private void facturaPedidos(){
-        
+
     }
 
     public void run(){
