@@ -1,32 +1,38 @@
+import java.io.IOException;
+
 public class ConsumidorPedidos extends Thread {
 
-    private ColaPedidos colaPedido;
+    private ColaPedidos cola;
+    private String nombreTrabajador;
 
-    public ConsumidorPedidos(ColaPedidos colaPedido) {
-        this.colaPedido = colaPedido;
+    public ConsumidorPedidos(ColaPedidos cola, String nombreTrabajador){
+        this.cola = cola;
+        this.nombreTrabajador = nombreTrabajador;
     }
 
-    private void facturaPedidos(){
-
-    }
-
-    public void run(){
-
-
+    @Override
+    public void run() {
         try {
-            System.out.println(getName()+" Iniciando Pedido...");
+            while (true) {
+                String pedido = cola.procesarPedido();
+                System.out.println(nombreTrabajador + " prepara " + pedido);
+                Thread.sleep(1000); // simula tiempo de trabajo
 
-            String pedido = colaPedido.procesarPedido();
-
-            Thread.sleep(1000);
-
-            System.out.println(getName()+" Pedido finalizado.");
+                // Llamada al proceso externo generaFactura.jar
+                generarFactura(pedido);
+            }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void generarFactura(String pedido) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("java", "-jar", "generaFactura.jar", pedido);
+            pb.inheritIO();
+            pb.start();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
-
 }

@@ -2,20 +2,23 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ColaPedidos {
-    private Queue<Integer> cola = new LinkedList<Integer>();
-    private int capacidad=5;
+    private Queue<String> pedidos = new LinkedList<String>();
+    private int capacidad;
 
-    public synchronized void nuevoPedido(int pedido) throws InterruptedException {
+    public ColaPedidos(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public synchronized void nuevoPedido(String pedido) throws InterruptedException {
         //Si la cola esta llena, se espera
-        while(cola.size() == capacidad){
+        while(pedidos.size() == capacidad){
             //Espera si la colaPedidos esta lleno
             wait();
-            //hola
         }
 
         //Si hay especio se añade a la cola
-        cola.add(pedido);
-        System.out.println("Pedido cola: " + pedido);
+        pedidos.add(pedido);
+        System.out.println("Nuevo pedido: " + pedido);
 
         //Avisamos a los consumidores
         notifyAll();
@@ -23,19 +26,16 @@ public class ColaPedidos {
 
     public synchronized String procesarPedido() throws InterruptedException {
         //Mientras la cola esta vacia el trajador debe esperar
-        while(cola.isEmpty()){
+        while(pedidos.isEmpty()){
             //El trabajador debe esperar
             wait();
         }
-        String pedido = String.valueOf(cola.poll());
-        System.out.println("Pedido cola: " + pedido);
+        String pedido = String.valueOf(pedidos.poll());
+        System.out.println("Pedido procesado: " + pedido);
 
         //Avisamos al trabajador de que hay pedido
         notifyAll();
 
         return pedido;
-    }
-    private Queue<Integer> getCola() {
-        return cola;
     }
 }

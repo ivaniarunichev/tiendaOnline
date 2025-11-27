@@ -1,0 +1,2 @@
+Factura generada para: Pedido 9 de Cliente8
+Comra hecha.

@@ -1,40 +1,18 @@
 import java.nio.Buffer;
 
 public class MainPedidos {
-
-
-
     public static void main(String[] args) throws InterruptedException {
 
-        ColaPedidos colaPedidos = new ColaPedidos();
+        ColaPedidos cola = new ColaPedidos(5); // capacidad máxima 5
 
-
-        //Crear Productores (clientes)
-        ProductorPedidos[] productorPedidos = new ProductorPedidos[10];
-        for(int i = 0; i< productorPedidos.length;i++){
-            productorPedidos[i] = new ProductorPedidos(colaPedidos);
+        // Crear productores
+        for (int i = 1; i <= 10; i++) {
+            new ProductorPedidos(cola, "Cliente" + i).start();
         }
 
-        //Crear Consumidores (trabajadores)
-        ConsumidorPedidos[] consumidorPedidos = new ConsumidorPedidos[5];
-        for(int i = 0; i< consumidorPedidos.length;i++){
-            consumidorPedidos[i] = new ConsumidorPedidos(colaPedidos);
+        // Crear consumidores
+        for (int i = 1; i <= 5; i++) {
+            new ConsumidorPedidos(cola, "Trabajador" + i).start();
         }
-
-        for(ConsumidorPedidos c : consumidorPedidos){
-            c.start();
-        }
-        for(ProductorPedidos p : productorPedidos){
-            p.start();
-        }
-
-        for(ConsumidorPedidos c : consumidorPedidos){
-            c.join();
-        }
-        for(ProductorPedidos p : productorPedidos){
-            p.join();
-        }
-
-        System.out.println("Todos los productores y los consumidores han sido creados: ");
     }
 }
